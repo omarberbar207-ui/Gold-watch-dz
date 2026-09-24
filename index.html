@@ -3,74 +3,343 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>تأكيد الطلب</title>
+  <title>GOLDEN WATCHES - متجر الساعات الفاخرة</title>
   <style>
-    body { font-family: system-ui, sans-serif; background: #f4f4f9; padding: 15px; margin: 0; direction: rtl; }
-    .card { background: white; max-width: 450px; margin: 10px auto; padding: 20px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-    img { width: 100%; border-radius: 8px; height: auto; }
-    h2 { color: #2c3e50; margin: 10px 0 5px; font-size: 20px; }
-    .price { color: #27ae60; font-weight: bold; font-size: 22px; margin-bottom: 15px; }
-    label { display: block; margin: 10px 0 5px; font-weight: bold; color: #333; font-size: 14px; }
-    input, select { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 8px; box-sizing: border-box; font-size: 15px; margin-bottom: 10px; background: #fafafa; }
-    button { width: 100%; padding: 14px; background: #25D366; color: white; border: none; border-radius: 8px; font-size: 17px; font-weight: bold; cursor: pointer; margin-top: 10px; }
+    :root {
+      --primary: #000000;
+      --bg-color: #ffffff;
+      --card-bg: #ffffff;
+      --border-color: #eee;
+      --red-badge: #ff3b30;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background-color: var(--bg-color);
+      margin: 0;
+      padding: 0;
+      direction: rtl;
+      color: #111;
+    }
+
+    /* الهيدر العلوي */
+    header {
+      background: #fff;
+      padding: 12px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border-color);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .brand-title {
+      font-weight: 800;
+      font-size: 18px;
+      letter-spacing: 1px;
+    }
+    .menu-icon {
+      font-size: 22px;
+      cursor: pointer;
+    }
+
+    .container {
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 20px 15px;
+    }
+
+    /* عنوان قسم المنتجات */
+    .section-header {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+    .section-title {
+      font-size: 24px;
+      font-weight: 800;
+      margin: 0 0 6px 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    .section-subtitle {
+      color: #666;
+      font-size: 14px;
+      margin: 0;
+    }
+
+    /* شبكة المنتجات (عمودين على الهاتف) */
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+    }
+
+    /* بطاقة المنتج */
+    .product-card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .img-wrapper {
+      position: relative;
+      width: 100%;
+      padding-top: 100%; /* نسبة 1:1 مربع */
+      border-radius: 12px;
+      overflow: hidden;
+      background: #f9f9f9;
+    }
+    .img-wrapper img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* شارة الخصم */
+    .badge {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      background: var(--red-badge);
+      color: #fff;
+      font-size: 11px;
+      font-weight: bold;
+      padding: 4px 8px;
+      border-radius: 20px;
+      z-index: 2;
+    }
+
+    .product-name {
+      font-size: 14px;
+      font-weight: 700;
+      margin: 10px 0 4px 0;
+      color: #222;
+      line-height: 1.3;
+    }
+
+    /* الأسعار */
+    .price-box {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+    .current-price {
+      font-size: 15px;
+      font-weight: 800;
+      color: #000;
+    }
+    .old-price {
+      font-size: 13px;
+      color: #a0a0a0;
+      text-decoration: line-through;
+    }
+
+    /* زر الطلب */
+    .order-btn {
+      width: 100%;
+      padding: 8px 0;
+      border: 1px solid #000;
+      background: #fff;
+      color: #000;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 14px;
+      cursor: pointer;
+      text-decoration: none;
+      display: block;
+      transition: all 0.2s ease;
+    }
+    .order-btn:hover {
+      background: #000;
+      color: #fff;
+    }
+
+    /* زر تحميل المزيد */
+    .load-more-container {
+      text-align: center;
+      margin: 30px 0;
+    }
+    .load-more-btn {
+      background: #000;
+      color: #fff;
+      border: none;
+      padding: 10px 30px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    /* الفوتر (أسفل الصفحة) */
+    footer {
+      border-top: 1px solid var(--border-color);
+      padding: 40px 20px 20px 20px;
+      text-align: center;
+      background: #fff;
+    }
+    .footer-logo {
+      font-weight: 800;
+      font-size: 18px;
+      margin-bottom: 10px;
+      letter-spacing: 1px;
+    }
+    .footer-subtitle {
+      color: #888;
+      font-size: 12px;
+      margin-bottom: 20px;
+      letter-spacing: 2px;
+    }
+    .footer-links {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 30px 0;
+    }
+    .footer-links li {
+      margin-bottom: 10px;
+    }
+    .footer-links a {
+      color: #333;
+      text-decoration: none;
+      font-size: 14px;
+    }
+    .copyright {
+      font-size: 12px;
+      color: #777;
+      border-top: 1px solid #f5f5f5;
+      padding-top: 15px;
+    }
+
+    /* زر الواتساب العائم */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background: #25D366;
+      color: white;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      text-decoration: none;
+      z-index: 1000;
+    }
   </style>
 </head>
 <body>
 
-  <div class="card">
-    <img src="https://via.placeholder.com/400x300" alt="صورة المنتج">
-    <h2>اسم المنتج الخاص بك هنا</h2>
-    <div class="price">3,500 دج</div>
-    <hr style="border:0; border-top: 1px solid #eee;">
-    
-    <form id="orderForm">
-      <label>الاسم واللقب:</label>
-      <input type="text" id="name" required placeholder="أدخل اسمك الكامل">
-      
-      <label>رقم الهاتف:</label>
-      <input type="tel" id="phone" required placeholder="06XXXXXXXX">
-      
-      <label>اختر اللون / المقاس:</label>
-      <select id="option">
-        <option value="أسود">أسود</option>
-        <option value="أبيض">أبيض</option>
-        <option value="أزرق">أزرق</option>
-      </select>
+  <!-- الهيدر -->
+  <header>
+    <div class="brand-title">GOLDEN WATCHES</div>
+    <div class="menu-icon">☰</div>
+  </header>
 
-      <label>الولاية:</label>
-      <input type="text" id="wilaya" required placeholder="مثال: الجزائر / غرداية">
+  <div class="container">
 
-      <label>البلدية:</label>
-      <input type="text" id="commune" required placeholder="أدخل اسم البلدية">
+    <!-- عنوان قسم المنتجات -->
+    <div class="section-header">
+      <h1 class="section-title">منتجاتنا ❤️</h1>
+      <p class="section-subtitle">اكتشف أفضل المنتجات بأفضل الأسعار 🔥</p>
+    </div>
 
-      <button type="submit">تأكيد الطلب عبر الواتساب 💬</button>
-    </form>
+    <!-- شبكة الساعات -->
+    <div class="products-grid">
+
+      <!-- ساعة 1 -->
+      <div class="product-card">
+        <div class="img-wrapper">
+          <span class="badge">-23%</span>
+          <img src="watch1.jpg" alt="ساعة كلاسيكية">
+        </div>
+        <div class="product-name">ساعة كلاسيكية فاخرة ذهبية</div>
+        <div class="price-box">
+          <span class="old-price">7500 دج</span>
+          <span class="current-price">5800 دج</span>
+        </div>
+        <a href="order.html?id=1" class="order-btn">أطلب</a>
+      </div>
+
+      <!-- ساعة 2 -->
+      <div class="product-card">
+        <div class="img-wrapper">
+          <span class="badge">-23%</span>
+          <img src="watch2.jpg" alt="ساعة جلد">
+        </div>
+        <div class="product-name">ساعة جلد طبيعي سوداء</div>
+        <div class="price-box">
+          <span class="old-price">7500 دج</span>
+          <span class="current-price">5800 دج</span>
+        </div>
+        <a href="order.html?id=2" class="order-btn">أطلب</a>
+      </div>
+
+      <!-- ساعة 3 -->
+      <div class="product-card">
+        <div class="img-wrapper">
+          <img src="watch3.jpg" alt="ساعة رياضية">
+        </div>
+        <div class="product-name">ساعة رياضية مقاومة للماء</div>
+        <div class="price-box">
+          <span class="current-price">9800 دج</span>
+        </div>
+        <a href="order.html?id=3" class="order-btn">أطلب</a>
+      </div>
+
+      <!-- ساعة 4 -->
+      <div class="product-card">
+        <div class="img-wrapper">
+          <img src="watch4.jpg" alt="ساعة فضية">
+        </div>
+        <div class="product-name">ساعة أوتوماتيك فضية</div>
+        <div class="price-box">
+          <span class="current-price">7500 دج</span>
+        </div>
+        <a href="order.html?id=4" class="order-btn">أطلب</a>
+      </div>
+
+    </div>
+
+    <!-- زر تحميل المزيد -->
+    <div class="load-more-container">
+      <button class="load-more-btn">... تحميل المزيد</button>
+    </div>
+
   </div>
 
-  <script>
-    document.getElementById('orderForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      
-      // اكتب رقمك في الواتساب هنا مكان الأصفار مع المرمز الدولي للجزائر 213
-      var myPhone = "213542439009"; 
-      
-      var name = document.getElementById('name').value;
-      var phone = document.getElementById('phone').value;
-      var option = document.getElementById('option').value;
-      var wilaya = document.getElementById('wilaya').value;
-      var commune = document.getElementById('commune').value;
+  <!-- الفوتر -->
+  <footer>
+    <div class="footer-logo">GOLDEN WATCHES</div>
+    <div class="footer-subtitle">BOUTIQUE</div>
 
-      var text = `مرحباً، أريد تأكيد طلبية جديد:%0A` +
-                 `👤 *الاسم:* ${name}%0A` +
-                 `📞 *الهاتف:* ${phone}%0A` +
-                 `🎨 *الخيار:* ${option}%0A` +
-                 `📍 *الولاية:* ${wilaya}%0A` +
-                 `إلى *البلدية:* ${commune}`;
+    <ul class="footer-links">
+      <li><a href="#">تواصل معنا</a></li>
+      <li><a href="#">حول المتجر</a></li>
+      <li><a href="#">الأسئلة الشائعة</a></li>
+      <li><a href="#">التوصيل</a></li>
+      <li><a href="#">أسعار التوصيل</a></li>
+    </ul>
 
-      window.open(`https://wa.me/${myPhone}?text=${text}`, '_blank');
-    });
-  </script>
+    <div class="copyright">
+      جميع الحقوق محفوظة © 2026 - مصمم بواسطة GitHub Pages ❤️
+    </div>
+  </footer>
+
+  <!-- زر واتساب العائم -->
+  <a href="https://wa.me/213XXXXXXXXX" class="whatsapp-float" target="_blank">💬</a>
 
 </body>
-        </html>
-        
+</html>
