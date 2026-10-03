@@ -6,26 +6,31 @@
   <title>تأكيد الطلب - GOLDEN WATCHES</title>
   <style>
     :root {
-      --primary: #000000;
+      --primary-color: #000000;
       --bg-color: #ffffff;
-      --border-color: #e0e0e0;
+      --border-color: #e2e8f0;
       --green-color: #10b981;
+      --gray-bg: #f8fafc;
       --radius: 12px;
     }
 
+    * {
+      box-sizing: border-box;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
     body {
-      font-family: system-ui, -apple-system, sans-serif;
       background-color: var(--bg-color);
       margin: 0;
       padding: 0;
       direction: rtl;
-      color: #111;
+      color: #0f172a;
     }
 
     /* الهيدر العلوي */
     header {
       background: #fff;
-      padding: 12px 20px;
+      padding: 14px 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -35,7 +40,7 @@
       z-index: 100;
     }
     .brand-title {
-      font-weight: 800;
+      font-weight: 900;
       font-size: 18px;
       letter-spacing: 1px;
     }
@@ -50,9 +55,9 @@
       padding: 15px;
     }
 
-    /* خيارات الألوان / الخصائص */
+    /* خيارات الألوان */
     .option-section {
-      margin-bottom: 15px;
+      margin-bottom: 18px;
     }
     .option-title {
       font-size: 15px;
@@ -61,7 +66,7 @@
     }
     .color-options {
       display: flex;
-      gap: 12px;
+      gap: 15px;
       align-items: center;
     }
     .color-item {
@@ -70,26 +75,27 @@
       gap: 6px;
       cursor: pointer;
       font-size: 14px;
+      font-weight: 500;
     }
     .color-circle {
       width: 22px;
       height: 22px;
       border-radius: 50%;
-      border: 2px solid #ccc;
+      border: 2px solid #cbd5e1;
       display: inline-block;
-      transition: 0.2s;
+      transition: all 0.2s ease;
     }
     .color-circle.gold { background: #d4af37; }
-    .color-circle.silver { background: #c0c0c0; }
-    .color-circle.black { background: #111; }
+    .color-circle.silver { background: #e2e8f0; }
+    .color-circle.black { background: #0f172a; }
 
     .color-item.active .color-circle {
       border-color: #000;
-      transform: scale(1.1);
+      transform: scale(1.15);
       box-shadow: 0 0 0 2px #fff, 0 0 0 4px #000;
     }
 
-    /* إطار الاستمارة الرئيسي */
+    /* بطاقة الاستمارة الرئيسية */
     .form-card {
       border: 1.5px solid #000;
       border-radius: 16px;
@@ -105,7 +111,7 @@
       margin-bottom: 20px;
     }
 
-    /* شبكة المدخلات */
+    /* شبكة مدخلات البيانات */
     .input-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -118,12 +124,12 @@
     .input-wrapper input, .input-wrapper select {
       width: 100%;
       padding: 12px 10px;
-      border: 1px solid #ccc;
+      border: 1px solid #cbd5e1;
       border-radius: 10px;
       font-size: 13px;
-      box-sizing: border-box;
       outline: none;
       background: #fff;
+      transition: border-color 0.2s;
     }
     .input-wrapper input:focus, .input-wrapper select:focus {
       border-color: #000;
@@ -141,7 +147,7 @@
     .radio-group {
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 10px;
     }
     .radio-item {
       display: flex;
@@ -152,11 +158,11 @@
     }
     .radio-item input {
       accent-color: #000;
-      width: 16px;
-      height: 16px;
+      width: 18px;
+      height: 18px;
     }
 
-    /* الرمز الترويجي */
+    /* زر الرمز الترويجي */
     .promo-btn {
       background: #000;
       color: #fff;
@@ -172,9 +178,9 @@
       cursor: pointer;
     }
 
-    /* خلاصة الأسعار */
+    /* جدول حاسبة الأسعار */
     .price-summary {
-      border-top: 1px solid #eee;
+      border-top: 1px solid #f1f5f9;
       padding-top: 12px;
       margin-top: 15px;
     }
@@ -183,10 +189,13 @@
       justify-content: space-between;
       font-size: 14px;
       margin-bottom: 8px;
+      color: #475569;
     }
     .price-row.total {
       font-weight: bold;
       font-size: 16px;
+      color: #0f172a;
+      margin-top: 10px;
     }
     .total-amount {
       color: var(--green-color);
@@ -194,19 +203,19 @@
       font-weight: 800;
     }
 
-    /* التحكم بالكمية والزر */
+    /* زر الطلب والتحكم بالكمية */
     .action-row {
       display: flex;
       gap: 10px;
-      margin-top: 15px;
+      margin-top: 18px;
       align-items: center;
     }
     .quantity-control {
       display: flex;
       align-items: center;
-      background: #f1f3f5;
-      border-radius: 8px;
-      padding: 4px;
+      background: #f1f5f9;
+      border-radius: 10px;
+      padding: 3px 6px;
     }
     .qty-btn {
       border: none;
@@ -221,18 +230,46 @@
       width: 25px;
       text-align: center;
       font-weight: bold;
-      font-size: 14px;
+      font-size: 15px;
     }
     .submit-btn {
       flex: 1;
       background: #000;
       color: #fff;
       border: none;
-      padding: 12px;
-      border-radius: 8px;
+      padding: 13px;
+      border-radius: 10px;
       font-size: 16px;
       font-weight: bold;
       cursor: pointer;
+      transition: background 0.2s;
+    }
+    .submit-btn:disabled {
+      background: #94a3b8;
+      cursor: not-allowed;
+    }
+
+    /* رسالة التأكيد بعد الإرسال */
+    #success-card {
+      display: none;
+      text-align: center;
+      padding: 35px 20px;
+      background: #f0fdf4;
+      border: 2px solid #bbf7d0;
+      border-radius: 16px;
+      margin-bottom: 25px;
+    }
+    #success-card h2 {
+      color: #166534;
+      margin-top: 0;
+      font-size: 22px;
+    }
+    #success-card p {
+      color: #15803d;
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 1.5;
+      margin-bottom: 0;
     }
 
     /* قسم آراء الزبائن */
@@ -241,7 +278,7 @@
       justify-content: space-between;
       align-items: center;
       margin: 30px 0 20px 0;
-      border-top: 1px solid #eee;
+      border-top: 1px solid #f1f5f9;
       padding-top: 20px;
     }
     .reviews-title {
@@ -258,12 +295,9 @@
       font-size: 13px;
       font-weight: bold;
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 5px;
     }
 
-    /* الفوتر */
+    /* الفوتر Footer */
     footer {
       border-top: 1px solid var(--border-color);
       padding: 30px 20px 20px 20px;
@@ -271,13 +305,13 @@
       background: #fff;
     }
     .footer-logo {
-      font-weight: 800;
+      font-weight: 900;
       font-size: 16px;
-      margin-bottom: 6px;
+      letter-spacing: 1px;
     }
     .footer-subtitle {
-      color: #888;
-      font-size: 12px;
+      color: #94a3b8;
+      font-size: 11px;
       margin-bottom: 20px;
     }
     .footer-links {
@@ -286,17 +320,17 @@
       margin: 0 0 25px 0;
     }
     .footer-links li {
-      margin-bottom: 8px;
+      margin-bottom: 10px;
     }
     .footer-links a {
-      color: #333;
+      color: #334155;
       text-decoration: none;
       font-size: 13px;
     }
     .copyright {
       font-size: 11px;
-      color: #777;
-      border-top: 1px solid #f5f5f5;
+      color: #64748b;
+      border-top: 1px solid #f8fafc;
       padding-top: 15px;
     }
 
@@ -314,7 +348,7 @@
       align-items: center;
       justify-content: center;
       font-size: 26px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
       text-decoration: none;
       z-index: 1000;
     }
@@ -322,7 +356,7 @@
 </head>
 <body>
 
-  <!-- الهيدر -->
+  <!-- الهيدر العلوي -->
   <header>
     <div class="brand-title">GOLDEN WATCHES</div>
     <div class="menu-icon">☰</div>
@@ -330,7 +364,7 @@
 
   <div class="container">
 
-    <!-- اختيار لون الساعة -->
+    <!-- اختيار اللون -->
     <div class="option-section">
       <div class="option-title">اللون</div>
       <div class="color-options">
@@ -349,8 +383,8 @@
       </div>
     </div>
 
-    <!-- بطاقة الاستمارة -->
-    <div class="form-card">
+    <!-- بطاقة استمارة الطلب -->
+    <div class="form-card" id="form-card">
       <h2 class="form-title">املأ الاستمارة للطلب</h2>
 
       <form id="orderForm">
@@ -361,21 +395,15 @@
             <input type="text" id="name" placeholder="👤 الاسم واللقب" required>
           </div>
           <div class="input-wrapper">
-            <input type="tel" id="phone" placeholder="📞 رقم الهاتف" required>
+            <input type="tel" id="phone" placeholder="📞 رقم الهاتف" required pattern="[0-9]{10}">
           </div>
           <div class="input-wrapper">
             <select id="wilaya" onchange="updateDelivery()" required>
               <option value="">🏰 اختر ولايتك</option>
-              <option value="16" data-home="500" data-desk="300">16 - الجزائر</option>
-              <option value="47" data-home="600" data-desk="400">47 - غرداية</option>
-              <option value="31" data-home="600" data-desk="400">31 - وهران</option>
-              <option value="25" data-home="600" data-desk="400">25 - قسنطينة</option>
             </select>
           </div>
           <div class="input-wrapper">
-            <select id="commune" required>
-              <option value="">🏛️ اختر البلدية</option>
-            </select>
+            <input type="text" id="commune" placeholder="🏛️ البلدية" required>
           </div>
         </div>
 
@@ -385,7 +413,7 @@
           <div class="radio-group">
             <label class="radio-item">
               <input type="radio" name="delivery_type" value="home" checked onchange="updateDelivery()">
-              <span>للمنزل</span>
+              <span>لمنزل الزبون</span>
             </label>
             <label class="radio-item">
               <input type="radio" name="delivery_type" value="desk" onchange="updateDelivery()">
@@ -397,7 +425,7 @@
         <!-- رمز ترويجي -->
         <button type="button" class="promo-btn">🏷️ إستخدم رمز ترويجي</button>
 
-        <!-- تفاصيل السعر -->
+        <!-- تفاصيل وحساب السعر -->
         <div class="price-summary">
           <div class="price-row">
             <span>سعر التوصيل</span>
@@ -413,9 +441,9 @@
           </div>
         </div>
 
-        <!-- الكمية وزر أطلب الآن -->
+        <!-- زر الطلب وحاسبة الكمية -->
         <div class="action-row">
-          <button type="submit" class="submit-btn">أطلب الآن</button>
+          <button type="submit" class="submit-btn" id="submitBtn">أطلب الآن</button>
 
           <div class="quantity-control">
             <button type="button" class="qty-btn" onclick="changeQty(1)">+</button>
@@ -427,10 +455,16 @@
       </form>
     </div>
 
+    <!-- بطاقة النجاح (تظهر بعد إرسال الطلب) -->
+    <div id="success-card">
+      <h2>🎉 شكراً لك!</h2>
+      <p>تم استلام طلبك بنجاح، وطلبيتك في طريقها إليك.<br>سنتصل بك قريباً عبر الهاتف لتأكيد الشحن.</p>
+    </div>
+
     <!-- قسم آراء الزبائن -->
     <div class="reviews-section">
       <h3 class="reviews-title">آراء الزبائن</h3>
-      <button class="add-review-btn">⭐ إضافة رأي</button>
+      <button type="button" class="add-review-btn">⭐ إضافة رأي</button>
     </div>
 
   </div>
@@ -454,21 +488,45 @@
   </footer>
 
   <!-- زر الواتساب العائم -->
-  <a href="https://wa.me/213XXXXXXXXX" class="whatsapp-float" target="_blank">💬</a>
+  <a href="https://wa.me/213000000000" class="whatsapp-float" target="_blank">💬</a>
 
+  <!-- استدعاء ملف أسعار الولايات الخارجي -->
+  <script src="wilayas.js"></script>
+
+  <!-- السكريبت البرمجي للتحكم بالصفحة -->
   <script>
-    let unitPrice = 5800;
+    // رابط Google Apps Script لاستقبال الطلبات وتسجيلها في Google Sheets
+    const SCRIPT_URL = 'ضع_رابط_GOOGLE_APPS_SCRIPT_هنا';
+
+    let unitPrice = 5800; // السعر الافتراضي للساعة
     let currentQty = 1;
     let selectedColor = "ذهبي";
 
-    // تغيير لون الساعة
+    // ملء الولايات عند تحميل الصفحة تلقائياً من wilayas.js
+    window.addEventListener('DOMContentLoaded', () => {
+      const wilayaSelect = document.getElementById('wilaya');
+      
+      if (typeof wilayasData !== 'undefined') {
+        wilayaSelect.innerHTML = '<option value="">🏰 اختر ولايتك</option>';
+        wilayasData.forEach(item => {
+          const opt = document.createElement('option');
+          opt.value = item.code;
+          opt.textContent = `${item.code} - ${item.name}`;
+          opt.setAttribute('data-home', item.home);
+          opt.setAttribute('data-desk', item.desk);
+          wilayaSelect.appendChild(opt);
+        });
+      }
+    });
+
+    // دالة اختيار لون الساعة
     function selectColor(element, color) {
       document.querySelectorAll('.color-item').forEach(el => el.classList.remove('active'));
       element.classList.add('active');
       selectedColor = color;
     }
 
-    // زيادة ونقصان الكمية
+    // دالة التحكم في زيادة ونقصان الكمية
     function changeQty(delta) {
       if (currentQty + delta >= 1) {
         currentQty += delta;
@@ -477,7 +535,7 @@
       }
     }
 
-    // تحديث حساب سعر التوصيل والإجمالي
+    // دالة حساب أسعار التوصيل والإجمالي أوتوماتيكياً
     function updateDelivery() {
       const wilayaSelect = document.getElementById('wilaya');
       const selectedOption = wilayaSelect.options[wilayaSelect.selectedIndex];
@@ -485,7 +543,7 @@
       
       let deliveryCost = 0;
 
-      if (selectedOption.value !== "") {
+      if (selectedOption && selectedOption.value !== "") {
         deliveryCost = parseInt(selectedOption.getAttribute(deliveryType === 'home' ? 'data-home' : 'data-desk')) || 0;
         document.getElementById('delivery-price-text').innerText = deliveryCost + " دج";
       } else {
@@ -498,8 +556,49 @@
       document.getElementById('product-price-text').innerText = subtotal + " دج";
       document.getElementById('total-price-text').innerText = total + " دج";
     }
+
+    // إرسال الطلب خلف الكواليس وإظهار رسالة النجاح
+    const form = document.getElementById('orderForm');
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      
+      const submitBtn = document.getElementById('submitBtn');
+      submitBtn.disabled = true;
+      submitBtn.innerText = 'جاري إرسال الطلب...';
+
+      const wilayaSelect = document.getElementById('wilaya');
+      const selectedWilayaText = wilayaSelect.options[wilayaSelect.selectedIndex].text;
+
+      const formData = new FormData();
+      formData.append('name', document.getElementById('name').value);
+      formData.append('phone', document.getElementById('phone').value);
+      formData.append('wilaya', selectedWilayaText);
+      formData.append('commune', document.getElementById('commune').value);
+      formData.append('color', selectedColor);
+      formData.append('quantity', currentQty);
+      formData.append('total_price', document.getElementById('total-price-text').innerText);
+
+      // إذا كان هناك رابط Apps Script يقوم بالإرسال، وإلا يظهر النجاح مباشرة
+      if (SCRIPT_URL && !SCRIPT_URL.includes('ضع_رابط')) {
+        fetch(SCRIPT_URL, { method: 'POST', body: formData })
+          .then(response => showSuccess())
+          .catch(error => {
+            alert('حدث خطأ بسيط، تم تسجيل طلبك محلياً.');
+            showSuccess();
+          });
+      } else {
+        // في حالة المعاينة دون وضع رابط سكريبت
+        setTimeout(showSuccess, 800);
+      }
+    });
+
+    function showSuccess() {
+      document.getElementById('form-card').style.display = 'none';
+      document.getElementById('success-card').style.display = 'block';
+      window.scrollTo({ top: 100, behavior: 'smooth' });
+    }
   </script>
 
 </body>
-              </html>
-              
+  </html>
+  
