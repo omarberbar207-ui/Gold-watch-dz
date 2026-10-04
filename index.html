@@ -3,11 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>متجر الساعات الفاخرة</title>
-
-  <!-- 1. تصميم الصفحة والتصنيفات (CSS) -->
+  <title>Gold Watch DZ | متجر الساعات الفاخرة</title>
+  
   <style>
-    /* إعدادات العرض العامة */
+    /* 1. التنسيقات العامة */
     * {
       box-sizing: border-box;
       margin: 0;
@@ -15,26 +14,51 @@
     }
 
     body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-      background-color: #ffffff;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background-color: #f8f9fa;
       color: #111111;
       direction: rtl;
-      padding-bottom: 40px;
+      padding-bottom: 80px;
     }
 
-    /* قسم تصنيفات الماركات */
+    /* الهيدر العلوي */
+    .header {
+      background-color: #ffffff;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing: 1px;
+      color: #111;
+      text-decoration: none;
+    }
+
+    .logo span {
+      color: #d4af37; /* لون ذهبي */
+    }
+
+    /* 2. قسم تصنيفات الماركات (السلايدر المتحرك) */
     .categories-section {
       width: 100%;
       max-width: 500px;
-      margin: 25px auto;
+      margin: 20px auto;
       padding: 0 15px;
     }
 
-    .categories-title {
-      font-size: 22px;
+    .section-title {
+      font-size: 20px;
       font-weight: 800;
-      color: #111111;
-      margin-bottom: 15px;
+      color: #111;
+      margin-bottom: 12px;
       text-align: right;
     }
 
@@ -44,7 +68,6 @@
       overflow: hidden;
     }
 
-    /* حاوية العرض والشريط المتحرك */
     .slider-container {
       display: flex;
       gap: 15px;
@@ -52,23 +75,22 @@
       scroll-behavior: smooth;
       scroll-snap-type: x mandatory;
       padding-bottom: 10px;
-      scrollbar-width: none; /* إخفاء شريط التمرير */
+      scrollbar-width: none;
     }
 
     .slider-container::-webkit-scrollbar {
-      display: none; /* إخفاء شريط التمرير في متصفحات الجوال */
+      display: none;
     }
 
-    /* تصميم بطاقة الماركة */
     .category-card {
       flex: 0 0 82%;
       scroll-snap-align: center;
       position: relative;
-      height: 320px;
-      border-radius: 24px;
+      height: 300px;
+      border-radius: 20px;
       overflow: hidden;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-      background-color: #f5f5f5;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+      background-color: #eee;
     }
 
     .category-img {
@@ -78,28 +100,25 @@
       display: block;
     }
 
-    /* محتوى البطاقة السفلي */
     .card-content {
       position: absolute;
       bottom: 0;
       left: 0;
       right: 0;
-      padding: 20px 15px;
-      background: linear-gradient(to top, rgba(0, 0, 0, 0.75), transparent);
+      padding: 18px 12px;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
     }
 
     .category-label {
       color: #ffffff;
-      font-size: 20px;
+      font-size: 18px;
       font-weight: 700;
       margin: 0;
       letter-spacing: 1px;
-      text-transform: uppercase;
-      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
     }
 
     .explore-btn {
@@ -107,57 +126,131 @@
       align-items: center;
       justify-content: center;
       width: 85%;
-      padding: 12px 0;
+      padding: 10px 0;
       background-color: #000000;
       color: #ffffff;
-      border-radius: 12px;
+      border-radius: 10px;
       text-decoration: none;
       font-weight: 700;
-      font-size: 16px;
-      transition: background-color 0.2s ease, transform 0.2s ease;
+      font-size: 15px;
     }
 
-    .explore-btn:active {
-      transform: scale(0.97);
-      background-color: #222222;
-    }
-
-    /* أزرار التنقل بالأسهم */
     .slider-arrow {
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      width: 38px;
-      height: 38px;
+      width: 36px;
+      height: 36px;
       border-radius: 50%;
-      background: rgba(0, 0, 0, 0.55);
-      color: #ffffff;
+      background: rgba(0, 0, 0, 0.5);
+      color: #fff;
       border: none;
-      font-size: 16px;
+      font-size: 14px;
       cursor: pointer;
       z-index: 10;
       display: flex;
       align-items: center;
       justify-content: center;
-      backdrop-filter: blur(4px);
     }
 
     .prev-arrow { right: 8px; }
     .next-arrow { left: 8px; }
+
+    /* 3. شبكة المنتجات (منتجاتنا) */
+    .products-section {
+      max-width: 500px;
+      margin: 25px auto;
+      padding: 0 15px;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+      margin-top: 15px;
+    }
+
+    .product-card {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .product-img {
+      width: 100%;
+      height: 140px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-bottom: 10px;
+    }
+
+    .product-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #222;
+      margin-bottom: 6px;
+      line-height: 1.3;
+    }
+
+    .product-price {
+      font-size: 15px;
+      font-weight: 800;
+      color: #000000;
+      margin-bottom: 10px;
+    }
+
+    .buy-btn {
+      display: block;
+      width: 100%;
+      padding: 9px 0;
+      background-color: #111111;
+      color: #ffffff;
+      text-align: center;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 13px;
+    }
+
+    /* زر الواتساب العائم */
+    .whatsapp-btn {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      width: 50px;
+      height: 50px;
+      background-color: #25d366;
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      text-decoration: none;
+      font-size: 24px;
+      z-index: 999;
+    }
   </style>
 </head>
 <body>
 
-  <!-- 2. هيكل قسم تصنيفات الماركات (HTML) -->
+  <!-- الهيدر -->
+  <header class="header">
+    <a href="#" class="logo">GOLD <span>WATCH</span> DZ</a>
+  </header>
+
+  <!-- قسم تصنيفات الماركات (السلايدر المتحرك) -->
   <section class="categories-section">
-    <h2 class="categories-title">اكتشف تصنيفات منتجاتنا !</h2>
+    <h2 class="section-title">اكتشف تصنيفات منتجاتنا !</h2>
     
     <div class="slider-wrapper">
-      <!-- أزرار التنقل -->
-      <button class="slider-arrow prev-arrow" id="prevBtn" aria-label="السابق">&#10094;</button>
-      <button class="slider-arrow next-arrow" id="nextBtn" aria-label="التالي">&#10095;</button>
+      <button class="slider-arrow prev-arrow" id="prevBtn">&#10094;</button>
+      <button class="slider-arrow next-arrow" id="nextBtn">&#10095;</button>
 
-      <!-- قائمة الصور بطاقات الماركات -->
       <div class="slider-container" id="sliderContainer">
         
         <!-- ROLEX -->
@@ -165,7 +258,7 @@
           <img src="rolex.jpg" alt="ROLEX" class="category-img">
           <div class="card-content">
             <h3 class="category-label">ROLEX</h3>
-            <a href="#rolex" class="explore-btn">الإطلاع &larr;</a>
+            <a href="#rolex-section" class="explore-btn">الإطلاع &larr;</a>
           </div>
         </div>
 
@@ -174,7 +267,7 @@
           <img src="festina.jpg" alt="FESTINA" class="category-img">
           <div class="card-content">
             <h3 class="category-label">FESTINA</h3>
-            <a href="#festina" class="explore-btn">الإطلاع &larr;</a>
+            <a href="#festina-section" class="explore-btn">الإطلاع &larr;</a>
           </div>
         </div>
 
@@ -183,7 +276,7 @@
           <img src="hublot.jpg" alt="HUBLOT" class="category-img">
           <div class="card-content">
             <h3 class="category-label">HUBLOT</h3>
-            <a href="#hublot" class="explore-btn">الإطلاع &larr;</a>
+            <a href="#hublot-section" class="explore-btn">الإطلاع &larr;</a>
           </div>
         </div>
 
@@ -192,7 +285,7 @@
           <img src="casio.jpg" alt="CASIO" class="category-img">
           <div class="card-content">
             <h3 class="category-label">CASIO</h3>
-            <a href="#casio" class="explore-btn">الإطلاع &larr;</a>
+            <a href="#casio-section" class="explore-btn">الإطلاع &larr;</a>
           </div>
         </div>
 
@@ -200,21 +293,65 @@
     </div>
   </section>
 
-  <!-- 3. كود التحريك التلقائي كل 3 ثواني (JavaScript) -->
+  <!-- قسم المنتجات والساعات -->
+  <section class="products-section">
+    <h2 class="section-title">منتجاتنا ❤️</h2>
+    <p style="color: #666; font-size: 13px; margin-bottom: 15px;">اكتشف أفضل المنتجات بأفضل الأسعار🔥</p>
+
+    <div class="products-grid">
+      
+      <!-- منتج 1: رولكس -->
+      <div class="product-card" id="rolex-section">
+        <img src="rolex.jpg" alt="Rolex Sky Dweller" class="product-img">
+        <h3 class="product-title">ROLEX SKY DWELLER</h3>
+        <div class="product-price">18,000 دج</div>
+        <a href="order.html?product=rolex" class="buy-btn">اطلب الآن</a>
+      </div>
+
+      <!-- منتج 2: فيستينا -->
+      <div class="product-card" id="festina-section">
+        <img src="festina.jpg" alt="Festina Chrono" class="product-img">
+        <h3 class="product-title">FESTINA CHRONO</h3>
+        <div class="product-price">12,500 دج</div>
+        <a href="order.html?product=festina" class="buy-btn">اطلب الآن</a>
+      </div>
+
+      <!-- منتج 3: هوبلو -->
+      <div class="product-card" id="hublot-section">
+        <img src="hublot.jpg" alt="Hublot Big Bang" class="product-img">
+        <h3 class="product-title">HUBLOT BIG BANG</h3>
+        <div class="product-price">15,000 دج</div>
+        <a href="order.html?product=hublot" class="buy-btn">اطلب الآن</a>
+      </div>
+
+      <!-- منتج 4: كاسيو -->
+      <div class="product-card" id="casio-section">
+        <img src="casio.jpg" alt="Casio Vintage" class="product-img">
+        <h3 class="product-title">CASIO VINTAGE</h3>
+        <div class="product-price">8,500 دج</div>
+        <a href="order.html?product=casio" class="buy-btn">اطلب الآن</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- زر الواتساب العائم -->
+  <a href="https://wa.me/" class="whatsapp-btn" target="_blank" aria-label="WhatsApp">💬</a>
+
+  <!-- السكريبت الخاص بالتحريك التلقائي -->
   <script>
     const container = document.getElementById('sliderContainer');
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
     
     let autoSlideInterval;
-    const slideDuration = 3000; // وقت التحريك التلقائي: كل 3 ثوانٍ
+    const slideDuration = 3000;
 
     function slideNext() {
       const card = container.querySelector('.category-card');
       if (!card) return;
       const cardWidth = card.offsetWidth + 15;
       
-      // عند الوصول للبطاقة الأخيرة يعود للبداية تلقائياً
       if (Math.abs(container.scrollLeft) + container.clientWidth >= container.scrollWidth - 10) {
         container.scrollTo({ left: 0, behavior: 'smooth' });
       } else {
@@ -238,7 +375,6 @@
       if (autoSlideInterval) clearInterval(autoSlideInterval);
     }
 
-    // ربط الأزرار بالتحريك
     nextBtn.addEventListener('click', () => {
       slideNext();
       startAutoSlide();
@@ -249,15 +385,11 @@
       startAutoSlide();
     });
 
-    // إيقاف التمرير التلقائي عند اللمس بيدك وإعادته عند الانتهاء
     container.addEventListener('touchstart', stopAutoSlide, { passive: true });
     container.addEventListener('touchend', startAutoSlide, { passive: true });
-    container.addEventListener('mouseenter', stopAutoSlide);
-    container.addEventListener('mouseleave', startAutoSlide);
 
-    // تشغيل السلايدر عند فتح الصفحة
     startAutoSlide();
   </script>
-
 </body>
-</html>
+  </html>
+  
