@@ -3,343 +3,261 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GOLDEN WATCHES - متجر الساعات الفاخرة</title>
+  <title>متجر الساعات الفاخرة</title>
+
+  <!-- 1. تصميم الصفحة والتصنيفات (CSS) -->
   <style>
-    :root {
-      --primary: #000000;
-      --bg-color: #ffffff;
-      --card-bg: #ffffff;
-      --border-color: #eee;
-      --red-badge: #ff3b30;
+    /* إعدادات العرض العامة */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
     body {
-      font-family: system-ui, -apple-system, sans-serif;
-      background-color: var(--bg-color);
-      margin: 0;
-      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background-color: #ffffff;
+      color: #111111;
       direction: rtl;
-      color: #111;
+      padding-bottom: 40px;
     }
 
-    /* الهيدر العلوي */
-    header {
-      background: #fff;
-      padding: 12px 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid var(--border-color);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-    .brand-title {
-      font-weight: 800;
-      font-size: 18px;
-      letter-spacing: 1px;
-    }
-    .menu-icon {
-      font-size: 22px;
-      cursor: pointer;
-    }
-
-    .container {
+    /* قسم تصنيفات الماركات */
+    .categories-section {
+      width: 100%;
       max-width: 500px;
-      margin: 0 auto;
-      padding: 20px 15px;
+      margin: 25px auto;
+      padding: 0 15px;
     }
 
-    /* عنوان قسم المنتجات */
-    .section-header {
-      text-align: center;
-      margin-bottom: 25px;
-    }
-    .section-title {
-      font-size: 24px;
+    .categories-title {
+      font-size: 22px;
       font-weight: 800;
-      margin: 0 0 6px 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-    }
-    .section-subtitle {
-      color: #666;
-      font-size: 14px;
-      margin: 0;
+      color: #111111;
+      margin-bottom: 15px;
+      text-align: right;
     }
 
-    /* شبكة المنتجات (عمودين على الهاتف) */
-    .products-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 15px;
-    }
-
-    /* بطاقة المنتج */
-    .product-card {
-      background: var(--card-bg);
-      border-radius: 12px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-    }
-
-    .img-wrapper {
+    .slider-wrapper {
       position: relative;
       width: 100%;
-      padding-top: 100%; /* نسبة 1:1 مربع */
-      border-radius: 12px;
       overflow: hidden;
-      background: #f9f9f9;
     }
-    .img-wrapper img {
-      position: absolute;
-      top: 0;
-      left: 0;
+
+    /* حاوية العرض والشريط المتحرك */
+    .slider-container {
+      display: flex;
+      gap: 15px;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      scroll-snap-type: x mandatory;
+      padding-bottom: 10px;
+      scrollbar-width: none; /* إخفاء شريط التمرير */
+    }
+
+    .slider-container::-webkit-scrollbar {
+      display: none; /* إخفاء شريط التمرير في متصفحات الجوال */
+    }
+
+    /* تصميم بطاقة الماركة */
+    .category-card {
+      flex: 0 0 82%;
+      scroll-snap-align: center;
+      position: relative;
+      height: 320px;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+      background-color: #f5f5f5;
+    }
+
+    .category-img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-    }
-
-    /* شارة الخصم */
-    .badge {
-      position: absolute;
-      top: 8px;
-      left: 8px;
-      background: var(--red-badge);
-      color: #fff;
-      font-size: 11px;
-      font-weight: bold;
-      padding: 4px 8px;
-      border-radius: 20px;
-      z-index: 2;
-    }
-
-    .product-name {
-      font-size: 14px;
-      font-weight: 700;
-      margin: 10px 0 4px 0;
-      color: #222;
-      line-height: 1.3;
-    }
-
-    /* الأسعار */
-    .price-box {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      margin-bottom: 10px;
-    }
-    .current-price {
-      font-size: 15px;
-      font-weight: 800;
-      color: #000;
-    }
-    .old-price {
-      font-size: 13px;
-      color: #a0a0a0;
-      text-decoration: line-through;
-    }
-
-    /* زر الطلب */
-    .order-btn {
-      width: 100%;
-      padding: 8px 0;
-      border: 1px solid #000;
-      background: #fff;
-      color: #000;
-      border-radius: 8px;
-      font-weight: bold;
-      font-size: 14px;
-      cursor: pointer;
-      text-decoration: none;
       display: block;
-      transition: all 0.2s ease;
-    }
-    .order-btn:hover {
-      background: #000;
-      color: #fff;
     }
 
-    /* زر تحميل المزيد */
-    .load-more-container {
-      text-align: center;
-      margin: 30px 0;
-    }
-    .load-more-btn {
-      background: #000;
-      color: #fff;
-      border: none;
-      padding: 10px 30px;
-      border-radius: 8px;
-      font-size: 14px;
-      font-weight: bold;
-      cursor: pointer;
+    /* محتوى البطاقة السفلي */
+    .card-content {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 20px 15px;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.75), transparent);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
     }
 
-    /* الفوتر (أسفل الصفحة) */
-    footer {
-      border-top: 1px solid var(--border-color);
-      padding: 40px 20px 20px 20px;
-      text-align: center;
-      background: #fff;
-    }
-    .footer-logo {
-      font-weight: 800;
-      font-size: 18px;
-      margin-bottom: 10px;
+    .category-label {
+      color: #ffffff;
+      font-size: 20px;
+      font-weight: 700;
+      margin: 0;
       letter-spacing: 1px;
-    }
-    .footer-subtitle {
-      color: #888;
-      font-size: 12px;
-      margin-bottom: 20px;
-      letter-spacing: 2px;
-    }
-    .footer-links {
-      list-style: none;
-      padding: 0;
-      margin: 0 0 30px 0;
-    }
-    .footer-links li {
-      margin-bottom: 10px;
-    }
-    .footer-links a {
-      color: #333;
-      text-decoration: none;
-      font-size: 14px;
-    }
-    .copyright {
-      font-size: 12px;
-      color: #777;
-      border-top: 1px solid #f5f5f5;
-      padding-top: 15px;
+      text-transform: uppercase;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
     }
 
-    /* زر الواتساب العائم */
-    .whatsapp-float {
-      position: fixed;
-      bottom: 20px;
-      left: 20px;
-      background: #25D366;
-      color: white;
-      width: 50px;
-      height: 50px;
+    .explore-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 85%;
+      padding: 12px 0;
+      background-color: #000000;
+      color: #ffffff;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 16px;
+      transition: background-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .explore-btn:active {
+      transform: scale(0.97);
+      background-color: #222222;
+    }
+
+    /* أزرار التنقل بالأسهم */
+    .slider-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 38px;
+      height: 38px;
       border-radius: 50%;
+      background: rgba(0, 0, 0, 0.55);
+      color: #ffffff;
+      border: none;
+      font-size: 16px;
+      cursor: pointer;
+      z-index: 10;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 28px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-      text-decoration: none;
-      z-index: 1000;
+      backdrop-filter: blur(4px);
     }
+
+    .prev-arrow { right: 8px; }
+    .next-arrow { left: 8px; }
   </style>
 </head>
 <body>
 
-  <!-- الهيدر -->
-  <header>
-    <div class="brand-title">GOLDEN WATCHES</div>
-    <div class="menu-icon">☰</div>
-  </header>
+  <!-- 2. هيكل قسم تصنيفات الماركات (HTML) -->
+  <section class="categories-section">
+    <h2 class="categories-title">اكتشف تصنيفات منتجاتنا !</h2>
+    
+    <div class="slider-wrapper">
+      <!-- أزرار التنقل -->
+      <button class="slider-arrow prev-arrow" id="prevBtn" aria-label="السابق">&#10094;</button>
+      <button class="slider-arrow next-arrow" id="nextBtn" aria-label="التالي">&#10095;</button>
 
-  <div class="container">
-
-    <!-- عنوان قسم المنتجات -->
-    <div class="section-header">
-      <h1 class="section-title">منتجاتنا ❤️</h1>
-      <p class="section-subtitle">اكتشف أفضل المنتجات بأفضل الأسعار 🔥</p>
-    </div>
-
-    <!-- شبكة الساعات -->
-    <div class="products-grid">
-
-      <!-- ساعة 1 -->
-      <div class="product-card">
-        <div class="img-wrapper">
-          <span class="badge">-23%</span>
-          <img src="watch1.jpg" alt="ساعة كلاسيكية">
+      <!-- قائمة الصور بطاقات الماركات -->
+      <div class="slider-container" id="sliderContainer">
+        
+        <!-- ROLEX -->
+        <div class="category-card">
+          <img src="rolex.jpg" alt="ROLEX" class="category-img">
+          <div class="card-content">
+            <h3 class="category-label">ROLEX</h3>
+            <a href="#rolex" class="explore-btn">الإطلاع &larr;</a>
+          </div>
         </div>
-        <div class="product-name">ساعة كلاسيكية فاخرة ذهبية</div>
-        <div class="price-box">
-          <span class="old-price">7500 دج</span>
-          <span class="current-price">5800 دج</span>
+
+        <!-- FESTINA -->
+        <div class="category-card">
+          <img src="festina.jpg" alt="FESTINA" class="category-img">
+          <div class="card-content">
+            <h3 class="category-label">FESTINA</h3>
+            <a href="#festina" class="explore-btn">الإطلاع &larr;</a>
+          </div>
         </div>
-        <a href="order.html?id=1" class="order-btn">أطلب</a>
+
+        <!-- HUBLOT -->
+        <div class="category-card">
+          <img src="hublot.jpg" alt="HUBLOT" class="category-img">
+          <div class="card-content">
+            <h3 class="category-label">HUBLOT</h3>
+            <a href="#hublot" class="explore-btn">الإطلاع &larr;</a>
+          </div>
+        </div>
+
+        <!-- CASIO -->
+        <div class="category-card">
+          <img src="casio.jpg" alt="CASIO" class="category-img">
+          <div class="card-content">
+            <h3 class="category-label">CASIO</h3>
+            <a href="#casio" class="explore-btn">الإطلاع &larr;</a>
+          </div>
+        </div>
+
       </div>
-
-      <!-- ساعة 2 -->
-      <div class="product-card">
-        <div class="img-wrapper">
-          <span class="badge">-23%</span>
-          <img src="watch2.jpg" alt="ساعة جلد">
-        </div>
-        <div class="product-name">ساعة جلد طبيعي سوداء</div>
-        <div class="price-box">
-          <span class="old-price">7500 دج</span>
-          <span class="current-price">5800 دج</span>
-        </div>
-        <a href="order.html?id=2" class="order-btn">أطلب</a>
-      </div>
-
-      <!-- ساعة 3 -->
-      <div class="product-card">
-        <div class="img-wrapper">
-          <img src="watch3.jpg" alt="ساعة رياضية">
-        </div>
-        <div class="product-name">ساعة رياضية مقاومة للماء</div>
-        <div class="price-box">
-          <span class="current-price">9800 دج</span>
-        </div>
-        <a href="order.html?id=3" class="order-btn">أطلب</a>
-      </div>
-
-      <!-- ساعة 4 -->
-      <div class="product-card">
-        <div class="img-wrapper">
-          <img src="watch4.jpg" alt="ساعة فضية">
-        </div>
-        <div class="product-name">ساعة أوتوماتيك فضية</div>
-        <div class="price-box">
-          <span class="current-price">7500 دج</span>
-        </div>
-        <a href="order.html?id=4" class="order-btn">أطلب</a>
-      </div>
-
     </div>
+  </section>
 
-    <!-- زر تحميل المزيد -->
-    <div class="load-more-container">
-      <button class="load-more-btn">... تحميل المزيد</button>
-    </div>
+  <!-- 3. كود التحريك التلقائي كل 3 ثواني (JavaScript) -->
+  <script>
+    const container = document.getElementById('sliderContainer');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    
+    let autoSlideInterval;
+    const slideDuration = 3000; // وقت التحريك التلقائي: كل 3 ثوانٍ
 
-  </div>
+    function slideNext() {
+      const card = container.querySelector('.category-card');
+      if (!card) return;
+      const cardWidth = card.offsetWidth + 15;
+      
+      // عند الوصول للبطاقة الأخيرة يعود للبداية تلقائياً
+      if (Math.abs(container.scrollLeft) + container.clientWidth >= container.scrollWidth - 10) {
+        container.scrollTo({ left: 0, behavior: 'smooth' });
+      } else {
+        container.scrollBy({ left: -cardWidth, behavior: 'smooth' });
+      }
+    }
 
-  <!-- الفوتر -->
-  <footer>
-    <div class="footer-logo">GOLDEN WATCHES</div>
-    <div class="footer-subtitle">BOUTIQUE</div>
+    function slidePrev() {
+      const card = container.querySelector('.category-card');
+      if (!card) return;
+      const cardWidth = card.offsetWidth + 15;
+      container.scrollBy({ left: cardWidth, behavior: 'smooth' });
+    }
 
-    <ul class="footer-links">
-      <li><a href="#">تواصل معنا</a></li>
-      <li><a href="#">حول المتجر</a></li>
-      <li><a href="#">الأسئلة الشائعة</a></li>
-      <li><a href="#">التوصيل</a></li>
-      <li><a href="#">أسعار التوصيل</a></li>
-    </ul>
+    function startAutoSlide() {
+      stopAutoSlide();
+      autoSlideInterval = setInterval(slideNext, slideDuration);
+    }
 
-    <div class="copyright">
-      جميع الحقوق محفوظة © 2026 - مصمم بواسطة GitHub Pages ❤️
-    </div>
-  </footer>
+    function stopAutoSlide() {
+      if (autoSlideInterval) clearInterval(autoSlideInterval);
+    }
 
-  <!-- زر واتساب العائم -->
-  <a href="https://wa.me/213XXXXXXXXX" class="whatsapp-float" target="_blank">💬</a>
+    // ربط الأزرار بالتحريك
+    nextBtn.addEventListener('click', () => {
+      slideNext();
+      startAutoSlide();
+    });
+
+    prevBtn.addEventListener('click', () => {
+      slidePrev();
+      startAutoSlide();
+    });
+
+    // إيقاف التمرير التلقائي عند اللمس بيدك وإعادته عند الانتهاء
+    container.addEventListener('touchstart', stopAutoSlide, { passive: true });
+    container.addEventListener('touchend', startAutoSlide, { passive: true });
+    container.addEventListener('mouseenter', stopAutoSlide);
+    container.addEventListener('mouseleave', startAutoSlide);
+
+    // تشغيل السلايدر عند فتح الصفحة
+    startAutoSlide();
+  </script>
 
 </body>
 </html>
